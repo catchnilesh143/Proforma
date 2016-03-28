@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="PartnerType" Type="varchar" MaxLength="50" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="500" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="500" />
+          <Property Name="City" Type="varchar" MaxLength="200" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="50" />
+          <Property Name="Phone1" Type="varchar" MaxLength="50" />
+          <Property Name="Phone2" Type="varchar" MaxLength="50" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="Website" Type="varchar" MaxLength="250" />
+          <Property Name="FTPSite" Type="varchar" MaxLength="250" />
+          <Property Name="ArtEmail" Type="varchar" MaxLength="250" />
+          <Property Name="OrderEmail" Type="varchar" MaxLength="250" />
+          <Property Name="FOBPointInCanada" Type="varchar" MaxLength="50" />
+          <Property Name="QuoteinCanadianDollars" Type="varchar" MaxLength="50" />
+          <Property Name="PrimaryContactName" Type="varchar" MaxLength="1000" />
+          <Property Name="PrimaryContactEmail" Type="varchar" MaxLength="250" />
+          <Property Name="PrimaryContactExtension" Type="varchar" MaxLength="100" />
+          <Property Name="PrimaryContactDirectLine" Type="varchar" MaxLength="100" />
+          <Property Name="SecondaryContactName" Type="varchar" MaxLength="1000" />
+          <Property Name="SecondaryContactEmail" Type="varchar" MaxLength="500" />
+          <Property Name="SecondaryContactExtension" Type="varchar" MaxLength="500" />
+          <Property Name="SecondaryContactDirectLine" Type="varchar" MaxLength="100" />
+          <Property Name="TradeOnly" Type="varchar" MaxLength="150" />
+          <Property Name="Union" Type="varchar" MaxLength="100" />
+          <Property Name="ASI" Type="varchar" MaxLength="100" />
+          <Property Name="PPAI" Type="varchar" MaxLength="100" />
+          <Property Name="PPPC" Type="varchar" MaxLength="100" />
+          <Property Name="SAGE" Type="varchar" MaxLength="100" />
+          <Property Name="UPIC" Type="varchar" MaxLength="100" />
+          <Property Name="Certifications" Type="varchar" MaxLength="500" />
+          <Property Name="MinorityOwned" Type="varchar" MaxLength="200" />
+          <Property Name="ProformaPricing" Type="varchar" MaxLength="500" />
+          <Property Name="ProformaPrograms" Type="varchar(max)" />
+          <Property Name="ProductsNCapabilities" Type="varchar(max)" />
+          <Property Name="Rushor24hour" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CompanyMeta">
+          <Key>
+            <PropertyRef Name="CompanyMetaId" />
+          </Key>
+          <Property Name="CompanyMetaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="FilterCriteriaId" Type="int" />
+        </EntityType>
+        <EntityType Name="FilterCriteria">
+          <Key>
+            <PropertyRef Name="FilterCriteriaId" />
+          </Key>
+          <Property Name="FilterCriteriaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="CriteriaText" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_Company_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyMeta_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="CompanyMeta" Type="Self.CompanyMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="CompanyMeta">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyMeta_FilterCriteria">
+          <End Role="FilterCriteria" Type="Self.FilterCriteria" Multiplicity="0..1" />
+          <End Role="CompanyMeta" Type="Self.CompanyMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilterCriteria">
+              <PropertyRef Name="FilterCriteriaId" />
+            </Principal>
+            <Dependent Role="CompanyMeta">
+              <PropertyRef Name="FilterCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilterCriteria_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="FilterCriteria" Type="Self.FilterCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="FilterCriteria">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyMeta" EntityType="Self.CompanyMeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilterCriteria" EntityType="Self.FilterCriteria" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Company_Category" Association="Self.FK_Company_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyMeta_Company" Association="Self.FK_CompanyMeta_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyMeta" EntitySet="CompanyMeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyMeta_FilterCriteria" Association="Self.FK_CompanyMeta_FilterCriteria">
+            <End Role="FilterCriteria" EntitySet="FilterCriteria" />
+            <End Role="CompanyMeta" EntitySet="CompanyMeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilterCriteria_Category" Association="Self.FK_FilterCriteria_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="FilterCriteria" EntitySet="FilterCriteria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProformaEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Model.Category" />
+          <EntitySet Name="Companies" EntityType="Model.Company" />
+          <AssociationSet Name="FK_Company_Category" Association="Model.FK_Company_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Company" EntitySet="Companies" />
+          </AssociationSet>
+          <EntitySet Name="FilterCriterias" EntityType="Model.FilterCriteria" />
+          <AssociationSet Name="FK_FilterCriteria_Category" Association="Model.FK_FilterCriteria_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="FilterCriteria" EntitySet="FilterCriterias" />
+          </AssociationSet>
+          <EntitySet Name="CompanyMetas" EntityType="Model.CompanyMeta" />
+          <AssociationSet Name="FK_CompanyMeta_Company" Association="Model.FK_CompanyMeta_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="CompanyMeta" EntitySet="CompanyMetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyMeta_FilterCriteria" Association="Model.FK_CompanyMeta_FilterCriteria">
+            <End Role="FilterCriteria" EntitySet="FilterCriterias" />
+            <End Role="CompanyMeta" EntitySet="CompanyMetas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Companies" Relationship="Model.FK_Company_Category" FromRole="Category" ToRole="Company" />
+          <NavigationProperty Name="FilterCriterias" Relationship="Model.FK_FilterCriteria_Category" FromRole="Category" ToRole="FilterCriteria" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FTPSite" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ArtEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="OrderEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FOBPointInCanada" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuoteinCanadianDollars" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryContactName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryContactEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryContactExtension" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryContactDirectLine" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryContactName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryContactEmail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryContactExtension" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryContactDirectLine" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TradeOnly" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Union" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ASI" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PPAI" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PPPC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UPIC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Certifications" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MinorityOwned" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProformaPricing" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ProformaPrograms" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductsNCapabilities" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rushor24hour" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Model.FK_Company_Category" FromRole="Company" ToRole="Category" />
+          <NavigationProperty Name="CompanyMetas" Relationship="Model.FK_CompanyMeta_Company" FromRole="Company" ToRole="CompanyMeta" />
+        </EntityType>
+        <Association Name="FK_Company_Category">
+          <End Type="Model.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="Model.Company" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FilterCriteria">
+          <Key>
+            <PropertyRef Name="FilterCriteriaId" />
+          </Key>
+          <Property Name="FilterCriteriaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="CriteriaText" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category" Relationship="Model.FK_FilterCriteria_Category" FromRole="FilterCriteria" ToRole="Category" />
+          <NavigationProperty Name="CompanyMetas" Relationship="Model.FK_CompanyMeta_FilterCriteria" FromRole="FilterCriteria" ToRole="CompanyMeta" />
+        </EntityType>
+        <Association Name="FK_FilterCriteria_Category">
+          <End Type="Model.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="Model.FilterCriteria" Role="FilterCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="FilterCriteria">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CompanyMeta">
+          <Key>
+            <PropertyRef Name="CompanyMetaId" />
+          </Key>
+          <Property Name="CompanyMetaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="FilterCriteriaId" Type="Int32" />
+          <NavigationProperty Name="Company" Relationship="Model.FK_CompanyMeta_Company" FromRole="CompanyMeta" ToRole="Company" />
+          <NavigationProperty Name="FilterCriteria" Relationship="Model.FK_CompanyMeta_FilterCriteria" FromRole="CompanyMeta" ToRole="FilterCriteria" />
+        </EntityType>
+        <Association Name="FK_CompanyMeta_Company">
+          <End Type="Model.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="Model.CompanyMeta" Role="CompanyMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="CompanyMeta">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyMeta_FilterCriteria">
+          <End Type="Model.FilterCriteria" Role="FilterCriteria" Multiplicity="0..1" />
+          <End Type="Model.CompanyMeta" Role="CompanyMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilterCriteria">
+              <PropertyRef Name="FilterCriteriaId" />
+            </Principal>
+            <Dependent Role="CompanyMeta">
+              <PropertyRef Name="FilterCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ProformaEntities2">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="Model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Category1" ColumnName="Category" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="Model.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Rushor24hour" ColumnName="Rushor24hour" />
+                <ScalarProperty Name="ProductsNCapabilities" ColumnName="ProductsNCapabilities" />
+                <ScalarProperty Name="ProformaPrograms" ColumnName="ProformaPrograms" />
+                <ScalarProperty Name="ProformaPricing" ColumnName="ProformaPricing" />
+                <ScalarProperty Name="MinorityOwned" ColumnName="MinorityOwned" />
+                <ScalarProperty Name="Certifications" ColumnName="Certifications" />
+                <ScalarProperty Name="UPIC" ColumnName="UPIC" />
+                <ScalarProperty Name="SAGE" ColumnName="SAGE" />
+                <ScalarProperty Name="PPPC" ColumnName="PPPC" />
+                <ScalarProperty Name="PPAI" ColumnName="PPAI" />
+                <ScalarProperty Name="ASI" ColumnName="ASI" />
+                <ScalarProperty Name="Union" ColumnName="Union" />
+                <ScalarProperty Name="TradeOnly" ColumnName="TradeOnly" />
+                <ScalarProperty Name="SecondaryContactDirectLine" ColumnName="SecondaryContactDirectLine" />
+                <ScalarProperty Name="SecondaryContactExtension" ColumnName="SecondaryContactExtension" />
+                <ScalarProperty Name="SecondaryContactEmail" ColumnName="SecondaryContactEmail" />
+                <ScalarProperty Name="SecondaryContactName" ColumnName="SecondaryContactName" />
+                <ScalarProperty Name="PrimaryContactDirectLine" ColumnName="PrimaryContactDirectLine" />
+                <ScalarProperty Name="PrimaryContactExtension" ColumnName="PrimaryContactExtension" />
+                <ScalarProperty Name="PrimaryContactEmail" ColumnName="PrimaryContactEmail" />
+                <ScalarProperty Name="PrimaryContactName" ColumnName="PrimaryContactName" />
+                <ScalarProperty Name="QuoteinCanadianDollars" ColumnName="QuoteinCanadianDollars" />
+                <ScalarProperty Name="FOBPointInCanada" ColumnName="FOBPointInCanada" />
+                <ScalarProperty Name="OrderEmail" ColumnName="OrderEmail" />
+                <ScalarProperty Name="ArtEmail" ColumnName="ArtEmail" />
+                <ScalarProperty Name="FTPSite" ColumnName="FTPSite" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PartnerType" ColumnName="PartnerType" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilterCriterias">
+            <EntityTypeMapping TypeName="Model.FilterCriteria">
+              <MappingFragment StoreEntitySet="FilterCriteria">
+                <ScalarProperty Name="CriteriaText" ColumnName="CriteriaText" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="FilterCriteriaId" ColumnName="FilterCriteriaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyMetas">
+            <EntityTypeMapping TypeName="Model.CompanyMeta">
+              <MappingFragment StoreEntitySet="CompanyMeta">
+                <ScalarProperty Name="FilterCriteriaId" ColumnName="FilterCriteriaId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CompanyMetaId" ColumnName="CompanyMetaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
