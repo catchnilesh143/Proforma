@@ -33,4 +33,35 @@ namespace ProformaWebAPI.ViewModel
         public string Flag { get; set; }
         public List<FilterCriteriaViewModel> Criteria { get; set; }
     }
+
+    public class EmailVerificationResponse
+    {
+        public string MESSAGE { get; set; }
+        public string Flag { get; set; }
+    }
+
+    public class RegisterResponse
+    {
+        public string MESSAGE { get; set; }
+        public string Flag { get; set; }
+    }
+
+    public class LoginResponse
+    {
+        public string MESSAGE { get; set; }
+        public string Flag { get; set; }
+    }
+
+    public class ForgotPasswordResponse
+    {
+        public string MESSAGE { get; set; }
+        public string Flag { get; set; }
+        public string TemporaryPassword { get; set; }
+    }
+
+    public class ResetPasswordResponse
+    {
+        public string MESSAGE { get; set; }
+        public string Flag { get; set; }
+    }
 }

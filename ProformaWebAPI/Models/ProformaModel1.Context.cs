@@ -29,5 +29,6 @@ namespace ProformaWebAPI.Models
         public DbSet<Company> Companies { get; set; }
         public DbSet<FilterCriteria> FilterCriterias { get; set; }
         public DbSet<CompanyMeta> CompanyMetas { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

@@ -66,6 +66,20 @@
     <Property Name="CategoryId" Type="int" />
     <Property Name="CriteriaText" Type="varchar" MaxLength="200" />
   </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="500" />
+    <Property Name="Salt" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TempPassword" Type="varchar" MaxLength="500" />
+    <Property Name="TempPassActiveTill" Type="datetime" />
+  </EntityType>
   <Association Name="FK_Company_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Company" Type="Self.Company" Multiplicity="*" />
@@ -119,6 +133,7 @@
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CompanyMeta" EntityType="Self.CompanyMeta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FilterCriteria" EntityType="Self.FilterCriteria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Company_Category" Association="Self.FK_Company_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Company" EntitySet="Company" />

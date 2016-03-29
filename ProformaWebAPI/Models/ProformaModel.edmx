@@ -71,6 +71,20 @@
           <Property Name="CategoryId" Type="int" />
           <Property Name="CriteriaText" Type="varchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="500" />
+          <Property Name="Salt" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="TempPassword" Type="varchar" MaxLength="500" />
+          <Property Name="TempPassActiveTill" Type="datetime" />
+        </EntityType>
         <Association Name="FK_Company_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Company" Type="Self.Company" Multiplicity="*" />
@@ -124,6 +138,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompanyMeta" EntityType="Self.CompanyMeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FilterCriteria" EntityType="Self.FilterCriteria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Company_Category" Association="Self.FK_Company_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Company" EntitySet="Company" />
@@ -166,6 +181,7 @@
             <End Role="FilterCriteria" EntitySet="FilterCriterias" />
             <End Role="CompanyMeta" EntitySet="CompanyMetas" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="Model.User" />
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -289,6 +305,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Salt" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="TempPassword" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TempPassActiveTill" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -362,6 +392,21 @@
                 <ScalarProperty Name="FilterCriteriaId" ColumnName="FilterCriteriaId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CompanyMetaId" ColumnName="CompanyMetaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="TempPassActiveTill" ColumnName="TempPassActiveTill" />
+                <ScalarProperty Name="TempPassword" ColumnName="TempPassword" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
